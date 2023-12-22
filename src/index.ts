@@ -6,7 +6,6 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import bodyParser from "body-parser";
-import * as routes from "./routes";
 import { useControllers } from "../libs/useControllers";
 import requestHandler from "../libs/middlewares/requestHandler";
 

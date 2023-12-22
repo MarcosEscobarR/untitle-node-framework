@@ -21,5 +21,9 @@ export class Result {
     return new Result(401, data);
   }
 
+  static statusCode(status: number, data?: unknown) {
+    return new Result(status, data);
+  }
+
   //other status codes
 }

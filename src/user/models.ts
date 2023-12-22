@@ -1,3 +1,5 @@
+import Joi from "joi";
+
 export interface UserModel {
   id: number;
   name: string;
@@ -7,3 +9,10 @@ export interface UserModel {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export const UserSchema = Joi.object({
+  name: Joi.string().required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+  role: Joi.string().valid("admin", "user").required(),
+});

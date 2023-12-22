@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import { HttpOptions } from "../types";
-import { Role } from "@prisma/client";
 
 /**
  * Construye el metodo GET del controlador.
@@ -13,10 +12,6 @@ export function Get(route: string = "", options?: HttpOptions): Function {
   return function (target: any, propertyKey: string) {
     Reflect.defineMetadata("httpMethod", "get", target, propertyKey);
     Reflect.defineMetadata("route", route, target, propertyKey);
-
-    if (options.protected) {
-      ProtectRoute(options.roles, target, propertyKey);
-    }
   };
 }
 
@@ -32,10 +27,6 @@ export function Post(route: string = "", options?: HttpOptions): Function {
   return function (target: any, propertyKey: string) {
     Reflect.defineMetadata("httpMethod", "post", target, propertyKey);
     Reflect.defineMetadata("route", route, target, propertyKey);
-
-    if (options.protected) {
-      ProtectRoute(options.roles, target, propertyKey);
-    }
   };
 }
 
@@ -64,7 +55,7 @@ export function Delete(route: string = ""): Function {
   route = validateMethodRoute(route);
 
   return function (target: any, propertyKey: string) {
-    Reflect.defineMetadata("httpMethod", "Delete", target, propertyKey);
+    Reflect.defineMetadata("httpMethod", "delete", target, propertyKey);
     Reflect.defineMetadata("route", route, target, propertyKey);
   };
 }
@@ -96,9 +87,4 @@ function validateControllerRoute(route: string) {
   }
 
   return route;
-}
-
-function ProtectRoute(role: Role[], target: any, propertyKey: string) {
-  Reflect.defineMetadata("routeProtected", true, target, propertyKey);
-  Reflect.defineMetadata("routeRole", role, target, propertyKey);
 }

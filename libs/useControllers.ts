@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { resultOf } from "./resultOf";
 import { validate } from "./validate";
-import { authorize } from "./authorization";
 import * as routes from "../src/routes";
 
 export function useControllers() {
@@ -28,12 +27,6 @@ export function useControllers() {
 
       const route = Reflect.getMetadata("route", instance, propertyKey);
       let httpMethod = Reflect.getMetadata("httpMethod", instance, propertyKey);
-      const protect = Reflect.getMetadata(
-        "routeProtected",
-        instance,
-        propertyKey
-      );
-      const routeRole = Reflect.getMetadata("routeRole", instance, propertyKey);
 
       const handler = instance[propertyKey];
 
@@ -42,7 +35,6 @@ export function useControllers() {
         router[httpMethod](
           `${prefix}${route}`,
           validate(validateProperty, validateSchema),
-          authorize(protect, routeRole),
           resultOf(handler, httpMethod, route, propertyKey)
         );
       }
