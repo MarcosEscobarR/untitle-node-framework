@@ -16,3 +16,7 @@ export const UserSchema = Joi.object({
   password: Joi.string().required(),
   role: Joi.string().valid("admin", "user").required(),
 });
+
+export const UserIdSchema = Joi.object({
+  id: Joi.number().required(),
+});

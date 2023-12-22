@@ -31,7 +31,12 @@ export const createUser = (user: UserModel): Result => {
 
 export const updateUser = (id: number, user: UserModel): Result => {
   const index = users.findIndex((user) => user.id === id);
-  users[index] = { ...user, updatedAt: new Date() };
+  users[index] = {
+    ...user,
+    id: users[index].id,
+    createdAt: users[index].createdAt,
+    updatedAt: new Date(),
+  };
 
   return Result.ok(users[index]);
 };
